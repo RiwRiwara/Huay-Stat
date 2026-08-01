@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "huay-stat",
+  "compatibility_date": "2026-08-01",
+  // Static build output only — there is no Worker script, the whole app is
+  // client-side. SPA handling serves index.html for unknown paths.
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
