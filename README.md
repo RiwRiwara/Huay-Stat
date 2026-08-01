@@ -1,4 +1,6 @@
 # หวยสถิติ (Huay Stat)
+<img width="853" height="887" alt="image" src="https://github.com/user-attachments/assets/24ea551c-c9ed-414e-b9c3-b76011cb6b03" />
+<img width="850" height="855" alt="image" src="https://github.com/user-attachments/assets/a3aebfaf-4db5-42a7-bd19-000b490e070e" />
 
 ตรวจหวย + สถิติสลากกินแบ่งรัฐบาล 390 งวดย้อนหลัง (มี.ค. 2553 – ปัจจุบัน)
 ทำงานบนเบราว์เซอร์ล้วน ไม่มี backend ไม่เก็บข้อมูลผู้ใช้
@@ -16,6 +18,7 @@
 ผลรางวัลจาก [GLO Open Data](https://gdcatalog.glo.or.th) (สำนักงานสลากกินแบ่งรัฐบาล)
 เก็บด้วย `scripts/harvest.py` ตอน build แล้วฝังเป็น `src/data/draws.json`
 ไม่มีการเรียก API ตอนใช้งาน
+<img width="359" height="105" alt="image" src="https://github.com/user-attachments/assets/b35a0ca4-66c2-479d-ba57-e13f5d1e69d0" />
 
 ### อัปเดตอัตโนมัติ
 
