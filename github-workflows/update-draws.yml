@@ -1,0 +1,46 @@
+name: Update lottery draws
+
+on:
+  schedule:
+    # 10:15 UTC = 17:15 Thailand time (results are announced ~16:00 ICT).
+    #
+    # Draws land on the 1st and the 16th, and the special dates shift only within
+    # two tight windows. Across all 390 draws on record the day-of-month is only
+    # ever 1, 2, 16, 17 or 30 — so month-turn plus mid-month covers every case,
+    # with a day of slack on each side in case the API publishes late.
+    #   30, 31, 1, 2, 3   → 1st + Dec 30, Jan 2, May 2
+    #   14–18             → 16th + Jan 17, Dec 17
+    # 10 runs a month instead of 30. Non-draw days make ~a dozen API calls and
+    # produce no commit.
+    - cron: '15 10 30,31,1,2,3,14,15,16,17,18 * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch new draws
+        run: python3 scripts/update_draws.py
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet src/data/draws.json; then
+            echo "No new draws — nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/draws.json
+          git commit -m "data: add latest lottery draw(s)"
+          git push
+      # Cloudflare Pages (connected to this repo) picks up the push and
+      # rebuilds automatically — no deploy step needed here.
